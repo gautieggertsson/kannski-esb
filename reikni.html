@@ -41,7 +41,7 @@ figcaption{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a8475;ma
   <div class="panel">
     <div class="ctrl"><label>Lánsfjárhæð <span class="val" id="vAmount">60 m.kr.</span></label><input type="range" id="amount" min="20" max="120" step="1" value="60"><div class="sub">Sjálfgefið: 85% af 70,6 m.kr. íbúð fyrstu kaupenda (HMS 2025)</div></div>
     <div class="ctrl"><label>Lánstími <span class="val" style="color:#46402f">25 ár · fast forsenda</span></label><div class="sub">Ekki breyta: gögnin (töflur 1 og 3) segja ekki til um hvernig vextir breytast eftir lánstíma, svo lánstími er fastur og ekki stilltur.</div></div>
-    <div class="ctrl"><label>Raunvextir á Íslandi <span class="val" id="vIce">4,50%</span></label><input type="range" id="ice" min="3.2" max="5.5" step="0.05" value="4.5"><div class="sub">Tafla 1: verðtryggt 4,5% → óverðtryggt ex ante 5,5%</div></div>
+    <div class="ctrl"><label>Raunvextir á Íslandi <span class="val" id="vIce">4,50%</span></label><input type="range" id="ice" min="3.2" max="5.5" step="0.05" value="4.5"><div class="sub">Tafla 1: raunvextir Íslands ≈4,5–5,5% (eftir lánsformi)</div></div>
     <div class="ctrl"><label>Lækkun raunvaxta með evru, Δr <span class="val" id="vDr">3,70 pp</span></label><input type="range" id="dr" min="2.0" max="4.7" step="0.05" value="3.7"><div class="sub">Tafla 3: bil 2,8–4,7 pp; höfuðmat 3,7 pp</div></div>
     <div class="derived">Raunvextir á evrusvæði (leiddir): <b id="vEur">0,80%</b><br><span style="color:#8a8475">= raunvextir Íslands − Δr</span></div>
   </div>
@@ -68,7 +68,7 @@ figcaption{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a8475;ma
     <div class="note">
       <b style="color:#a3211a;letter-spacing:.12em;text-transform:uppercase;font-size:10.5px">Hvað myndin gerir ráð fyrir — og ekki</b>
       <ul style="font-family:Spectral,Georgia,serif;font-size:13.5px;color:#6f6a5f;line-height:1.6;margin:9px 0 0;padding-left:18px">
-        <li>Nýtt <b>verðtryggt jafngreiðslulán til 25 ára</b>, reiknað í <b>raunvirði á verðlagi ársins 2025</b>. Sýnd er skipting <b>fyrsta mánaðar</b> í vexti (til bankans) og eignarmyndun.</li>
+        <li>Nýtt <b>íbúðalán til 25 ára</b> (jafnar greiðslur), reiknað í <b>raunvirði á verðlagi ársins 2025</b>. Þar sem reiknað er í raunvirði skiptir ekki máli hvort lánið er verðtryggt eða óverðtryggt — munurinn birtist eingöngu í forsendunni um raunvexti. Sýnd er skipting <b>fyrsta mánaðar</b> í vexti (til bankans) og eignarmyndun.</li>
         <li><b>Raunvextir haldast fastir óháð lánstíma og binditíma</b> — ekkert binditímaálag (term premium) er reiknað. Ein dæmigerð raunvaxtatala hvoru megin, í anda töflu 1. Þess vegna er lánstími föst forsenda en ekki stillanleg breyta.</li>
         <li><b>Δr</b> (lækkun raunvaxta) er innan bils töflu 3 (2,8–4,7 pp; höfuðmat 3,7); raunvextir Íslands innan bils töflu 1. Höfuðstóll og íbúð eru þau sömu báðum megin — munurinn liggur allur í vöxtum.</li>
         <li><b>Það sem myndin gerir ekki:</b> þetta er gróf hlutajafnvægisnálgun sem lítur fram hjá aðlögun og almennum jafnvægisáhrifum; lækkunin kæmi fram smám saman eftir því sem lán endurverðleggjast. Húsnæðisverð gæti hækkað á móti — en þá vex eignarmyndun (græni hlutinn) að sama skapi.</li>
