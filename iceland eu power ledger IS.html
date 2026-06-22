@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vald Íslands í Evrópusambandinu — bókhald</title>
+<style>
+:root{
+  --paper:#FBFAF6; --surface:#F2EFE8; --ink:#1B1A17; --muted:#6B6A63; --faint:#94928A;
+  --line:rgba(0,0,0,.12); --line2:rgba(0,0,0,.22);
+  --teal:#1D9E75; --tealT:#0F6E56; --coral:#D85A30; --coralT:#99381D;
+  --t-fore-bg:#FCEBEB; --t-fore-tx:#A32D2D; --t-amb-bg:#FAEEDA; --t-amb-tx:#854F0B;
+  --t-ven-bg:#E6F1FB; --t-ven-tx:#185FA5; --t-ins-bg:#EAF3DE; --t-ins-tx:#3B6D11;
+  --t-gone-bg:rgba(0,0,0,.05); --t-gone-tx:#6B6A63;
+  --serif:Georgia,'Iowan Old Style','Palatino',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'SF Mono',ui-monospace,'Cascadia Mono','Roboto Mono',Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#1A1917; --surface:#232220; --ink:#ECEAE3; --muted:#A8A69D; --faint:#7C7A72;
+    --line:rgba(255,255,255,.13); --line2:rgba(255,255,255,.24);
+    --teal:#3FB98E; --tealT:#7FD3B4; --coral:#E07A52; --coralT:#F0A98C;
+    --t-fore-bg:#3A1F1F; --t-fore-tx:#F09595; --t-amb-bg:#3A2E1A; --t-amb-tx:#EFB762;
+    --t-ven-bg:#16283A; --t-ven-tx:#85B7EB; --t-ins-bg:#1F2E14; --t-ins-tx:#97C459;
+    --t-gone-bg:rgba(255,255,255,.07); --t-gone-tx:#A8A69D;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;
+  -webkit-font-smoothing:antialiased;padding:2rem 1.25rem 3rem}
+.wrap{max-width:880px;margin:0 auto}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin:0 0 .5rem}
+h1{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.15;margin:0 0 .6rem;letter-spacing:-.01em}
+.lede{font-size:15px;color:var(--muted);margin:0 0 1.4rem;max-width:64ch}
+.explain{background:var(--surface);border-radius:14px;padding:1.1rem 1.25rem;margin:0 0 1.5rem}
+.explain h2{font-family:var(--serif);font-size:19px;font-weight:500;margin:0 0 .7rem;color:var(--ink);letter-spacing:-.01em}
+.explain p{font-size:14px;color:var(--muted);margin:0 0 .7rem;line-height:1.55}
+.explain p:last-child{margin-bottom:0}
+.explain b{color:var(--ink);font-weight:500}
+.formula{font-family:var(--mono);font-size:13.5px;background:var(--paper);border:1px solid var(--line);
+  border-radius:8px;padding:.85rem 1rem;margin:.3rem 0 .6rem;color:var(--ink);line-height:1.6;
+  white-space:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.hint{font-size:12.5px;color:var(--faint);font-style:italic;margin:.2rem 0 1.2rem}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 .4rem}
+.card{background:var(--surface);border-radius:10px;padding:.8rem .95rem}
+.card .l{font-size:12px;color:var(--muted)}
+.card .v{font-family:var(--serif);font-size:26px;font-weight:500;margin-top:3px}
+.sec{font-size:13px;color:var(--muted);margin:1.6rem 0 .5rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:2px;flex:none}
+.legend{font-size:11px;color:var(--faint);margin-left:auto;font-weight:400}
+.brow{display:flex;align-items:flex-start;gap:14px;padding:9px 0;border-bottom:1px solid var(--line)}
+.brow:last-child{border-bottom:none}
+.blab{flex:none;width:268px;font-size:13px;line-height:1.25;overflow-wrap:break-word;word-break:break-word}
+.bsub{font-size:11px;color:var(--faint);line-height:1.4;margin-top:3px}
+.bmid{flex:1;min-width:140px;display:flex;flex-direction:column;gap:7px;padding-top:2px}
+.btrack{position:relative;height:16px;background:var(--line);border-radius:4px;overflow:hidden}
+.bfill{position:absolute;top:0;bottom:0;left:0;border-radius:4px}
+.rs{-webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:2px;background:var(--line2);outline:none;margin:0;cursor:pointer}
+.rs::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--ink);cursor:pointer;border:2px solid var(--paper)}
+.rs::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--ink);cursor:pointer;border:2px solid var(--paper)}
+.scap{font-size:10.5px;color:var(--faint);font-family:var(--mono)}
+.bval{flex:none;width:46px;text-align:right;font-family:var(--mono);font-size:13px;font-weight:500;padding-top:1px}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:6px;margin-top:4px;font-family:var(--sans)}
+.t-gone{background:var(--t-gone-bg);color:var(--t-gone-tx)}
+.t-fore{background:var(--t-fore-bg);color:var(--t-fore-tx)}
+.t-oca,.t-unc{background:var(--t-amb-bg);color:var(--t-amb-tx)}
+.t-ven{background:var(--t-ven-bg);color:var(--t-ven-tx)}
+.t-ins{background:var(--t-ins-bg);color:var(--t-ins-tx)}
+.vbar{position:relative;height:18px;background:var(--surface);border-radius:9px;margin-top:1.5rem}
+.vctr{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line2)}
+.vmark{position:absolute;top:-3px;width:10px;height:24px;border-radius:3px;background:var(--ink);transform:translateX(-5px);left:50%;transition:left .12s ease}
+.vends{display:flex;justify-content:space-between;font-size:11px;color:var(--faint);margin-top:5px}
+.msg{font-size:14px;line-height:1.65;margin:1rem 0 0;color:var(--ink)}
+.foot{font-size:12px;color:var(--faint);margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem;max-width:70ch}
+@media (max-width:620px){
+  .blab{width:100%}
+  .brow{flex-wrap:wrap}
+  .bmid{flex-basis:100%;order:3}
+  .bval{order:2;width:auto;padding-top:0}
+  .cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Aðild að ESB · bókhald valds</p>
+  <h1>Vald Íslands í Evrópusambandinu</h1>
+  <p class="lede">Annars vegar völdin sem Ísland fengi við borðið, hins vegar þau sem það léti af hendi. Hér að neðan er útskýrt hvað hver stofnun gerir og hvernig hver tala er fengin — og þú getur stillt hverja tölu sjálf(ur).</p>
+
+  <div class="explain">
+    <h2>Hvernig eru tölurnar fengnar?</h2>
+    <p>Tvær leiðir eru til að ráða eigin málum: <b>rödd</b> (sæti við borðið, áhrif innan frá) og <b>útganga</b> (sjálfræðið til að fara eigin leið). Þessi skipting er sótt í klassískt rit hagfræðingsins Alberts Hirschmans frá 1970, <i>Exit, Voice and Loyalty</i>.</p>
+    <p><b>Fengin völd</b> eru metin sem sæti margfaldað með <b>raunvægi</b>. Sæti sem hvert ríki fær eitt af — neitunarvald, framkvæmdastjóri, dómari — vega þungt (Ísland til jafns við Þýskaland). Atkvæði sem þynnist út eftir íbúafjölda vegur létt, því Ísland er aðeins um 0,09% íbúa sambandsins. Þannig endurspeglar hver tala raunveruleg áhrif, ekki formið eitt.</p>
+    <p><b>Afslátturinn</b> er kjarni málsins. Hann segir hve mikið af nafn-tapinu er <b>raunverulegt</b> — því mörg „töp" eru það ekki. Sum eru þegar farin frá okkur gegnum EES-samninginn; önnur lifa áfram (aðeins dómþingið breytist); enn önnur eru fullkomlega möguleg innan ESB hvort eð er.</p>
+    <div class="formula">töpuð völd = vergt × (1 − afsláttur)</div>
+    <p>Dæmi: Icesave-rétturinn er að mestu varinn, svo af vergð 0,45 standa aðeins ~0,17 eftir.</p>
+    <p>Tölurnar eru gegnsæ viðmið á kvarða 0–1 (0 = ekkert vald, 1 = fullt vald yfir sviðinu), ekki nákvæmar mælingar. Tilgangurinn er ekki nákvæmni heldur að aðferðin neyði hvert tap til að gera grein fyrir sér.</p>
+  </div>
+
+  <p class="hint">Hver lína hefur sinn eigin sleða: efst stillir hann <b>vægið</b> sem fæst, neðst stillir hann <b>afsláttinn</b> á tapinu. Niðurstaðan uppfærist um leið.</p>
+
+  <div class="cards">
+    <div class="card"><div class="l">Fengin völd</div><div class="v" id="m-gain" style="color:var(--tealT)">0.0</div></div>
+    <div class="card"><div class="l">Nettó — með sjávarútvegsundanþágu</div><div class="v" id="m-net-yes" style="color:var(--tealT)">0.0</div></div>
+    <div class="card"><div class="l">Nettó — án undanþágu</div><div class="v" id="m-net-no">0.0</div></div>
+  </div>
+
+  <div class="sec"><span class="dot" style="background:var(--teal)"></span>Fengin völd — sæti í stofnunum (sleði = raunvægi)</div>
+  <div id="gained"></div>
+
+  <div class="sec"><span class="dot" style="background:var(--coral)"></span>Töpuð völd — sjálfræði sem framselst (sleði = afsláttur)<span class="legend">ljóst = vergt · dökkt = eftir afslátt</span></div>
+  <div id="lost"></div>
+
+  <div class="vbar"><div class="vctr"></div><div class="vmark" id="v-mark-no" style="background:var(--coral)"></div><div class="vmark" id="v-mark-yes" style="background:var(--teal)"></div></div>
+  <div class="vends"><span>nettótap · standa utan</span><span>jafnvægi</span><span>nettóábati · ganga inn</span></div>
+  <div style="display:flex;gap:18px;font-size:12px;color:var(--muted);margin-top:10px">
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:3px;background:var(--teal)"></span>með undanþágu</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:3px;background:var(--coral)"></span>án undanþágu</span>
+  </div>
+  <p class="msg" id="v-msg"></p>
+
+  <p class="foot">Tölurnar eru gegnsæ viðmið (0–1), ekki nákvæmar mælingar — gildið liggur í aðferðinni, sem neyðir hvert tap til að flokka sig: þegar afsalað (EES), lifir áfram (aðeins dómþing breytist), mögulegt innan ESB, eða raunverulega framselt. Myntlínan byggir á skýrslu sérfræðinganefndar Catherine Mann fyrir fjármálaráðuneytið (maí 2026). Nettó = fengin völd mínus töpuð völd. Sjálfgefnu gildin gefa +1,70 (með undanþágu) og +1,06 (án hennar).</p>
+</div>
+
+<script>
+(function(){
+  var G=[
+    {n:'Neitunarvald (samhljóða mál)',s:'Á viðkvæmustu málum — skattar, utanríkis- og öryggismál, stækkun, fjárlög, sáttmálar — verður hvert ríki að samþykkja. Ísland gæti eitt stöðvað mál, sama vald og Þýskaland.',w:.86},
+    {n:'Framkvæmdastjóri',s:'Framkvæmdastjórnin ein semur öll lög ESB. Ísland fengi einn fulltrúa af 28, óháð stærð.',w:.71},
+    {n:'Sæti í leiðtogaráði',s:'Leiðtogar ríkjanna marka heildarstefnu sambandsins. Forsætisráðherra Íslands sæti þar sem jafningi.',w:.63},
+    {n:'Dómari við ESB-dómstól',s:'Dómstóllinn túlkar lög ESB með bindandi hætti fyrir öll ríki. Ísland fengi einn dómara af 28.',w:.56},
+    {n:'Atkvæði í ráðherraráði',s:'Ráðherrar ríkjanna samþykkja lög með auknum meirihluta. Tvö skilyrði þarf samtímis: 55% ríkja OG 65% íbúa. Á ríkjaásnum telur Ísland eins og Þýskaland (1 af 28); á íbúaásnum aðeins um 0,09%.',w:.28},
+    {n:'Sex þingmenn',s:'Evrópuþingið samþykkir lög ásamt ráðinu. Ísland fengi 6 þingmenn af 726.',w:.25},
+    {n:'Sæti í Seðlabanka Evrópu',s:'Aðeins ef Ísland tæki upp evru: seðlabankastjóri fær sæti sem ákveður vexti evrusvæðisins (með skiptiatkvæði).',w:.31}
+  ];
+  var L=[
+    {n:'Innri-markaðsreglur',s:'Sameiginlegar reglur um vörur, þjónustu, fólk og fjármagn. Ísland tekur þær þegar upp gegnum EES, án atkvæðis.',g:.85,a:.74,c:'gone',tag:'þegar afsalað (EES)'},
+    {n:'Viðskipta- og tollastefna',s:'Réttur til að semja eigin viðskiptasamninga og setja tolla. Færist til ESB — en Ísland deilir þá afli 449 milljóna markaðar, líkt og herför er sterkari í hópi.',g:.75,a:.37,c:'ven',tag:'rauntap, vegið upp af afli heildar'},
+    {n:'Gengið sem höggdeyfir',s:'Eigin mynt sem getur fallið og mildað efnahagsáföll. Tapast við upptöku evru. Afslátturinn ræðst af því hve mikið krónan deyfir áföll í raun — Mann-skýrslan telur það lítið á venjulegum tímum.',g:.74,a:.62,c:'oca',tag:'tapast · myntveðmál'},
+    {n:'Sjávarútvegur — án undanþágu',s:'Stjórn fiskveiða og kvóta færist að fullu til sameiginlegrar sjávarútvegsstefnu ESB.',g:.85,a:.09,c:'fore',tag:'engin undanþága · rauntap',fishNo:true},
+    {n:'Sjávarútvegur — með undanþágu',s:'Varanleg undanþága: efnið helst (sögulegur hlutur, engir erlendir flotar); aðeins formlegt forræði færist.',g:.85,a:.85,c:'unc',tag:'með undanþágu · efnið varið',fishYes:true},
+    {n:'Neita og leita réttar (Icesave)',s:'Rétturinn til að hafna kröfum og fara með mál fyrir dóm. Lifir áfram — aðeins dómþingið breytist (ESB-dómstóll í stað EFTA-dómstóls, sem er Íslandi ívið hagstæðari).',g:.45,a:.62,c:'ven',tag:'lifir · aðeins dómþing'},
+    {n:'Einhliða aðgerðir (makríll)',s:'Rétturinn til að setja eigin kvóta þegar samningar bregðast (eins og í makríldeilunni). Innan ESB fer sambandið með þetta vald fyrir hönd Íslands — það getur enn beitt einhliða kvótum sem strandríkjablokk, en eigin rödd Íslands minnkar gegn afli heildar.',g:.50,a:.53,c:'ven',tag:'vald til ESB · rödd minnkar'},
+    {n:'Sjálfstæð utanríkisstefna',s:'Eigin afstaða í alþjóðamálum, t.d. viðurkenning ríkja. Möguleg innan ESB; mörg ríki fara eigin leiðir.',g:.35,a:.70,c:'ins',tag:'mögulegt innan ESB'},
+    {n:'Neyðarhöft og fyrirtækjaskattur',s:'Fjármagnshöft í kreppu og ákvörðun eigin fyrirtækjaskatts. Hvort tveggja mögulegt innan ESB.',g:.45,a:.74,c:'ins',tag:'mögulegt innan ESB'},
+    {n:'Uppbygging virðisaukaskatts',s:'Hvernig virðisaukaskattur er byggður upp. Lifir að mestu (Viðauki III leyfir flest).',g:.30,a:.45,c:'ven',tag:'lifir að mestu'}
+  ];
+  function q(id){return document.getElementById(id);}
+  function cl(x){return x<0?0:x>1?1:x;}
+  function tealVar(){return getComputedStyle(document.documentElement).getPropertyValue('--teal');}
+  function coralVar(){return getComputedStyle(document.documentElement).getPropertyValue('--coral');}
+  function buildG(){
+    var t=tealVar(),h='';
+    for(var i=0;i<G.length;i++){h+='<div class="brow"><div class="blab">'+G[i].n+'<div class="bsub">'+G[i].s+'</div></div>'
+      +'<div class="bmid"><div class="btrack"><div class="bfill" id="gf-'+i+'" style="background:'+t+';opacity:.9"></div></div>'
+      +'<input type="range" class="rs" data-kind="g" data-idx="'+i+'" min="0" max="1" step="0.01" value="'+G[i].w+'"></div>'
+      +'<div class="bval" id="gv-'+i+'" style="color:var(--tealT)"></div></div>';}
+    q('gained').innerHTML=h;
+  }
+  function buildL(){
+    var c=coralVar(),h='';
+    for(var i=0;i<L.length;i++){h+='<div class="brow"><div class="blab">'+L[i].n+'<br><span class="tag t-'+L[i].c+'">'+L[i].tag+'</span><div class="bsub">'+L[i].s+'</div></div>'
+      +'<div class="bmid"><div class="btrack"><div class="bfill" id="lf-'+i+'" style="background:'+c+';opacity:.24"></div>'
+      +'<div class="bfill" id="ls-'+i+'" style="background:'+c+';opacity:.9"></div></div>'
+      +'<input type="range" class="rs" data-kind="l" data-idx="'+i+'" min="0" max="1" step="0.01" value="'+L[i].a+'">'
+      +'<div class="scap" id="lc-'+i+'"></div></div>'
+      +'<div class="bval" id="lv-'+i+'" style="color:var(--coralT)"></div></div>';}
+    q('lost').innerHTML=h;
+  }
+  function render(){
+    var gain=0;
+    for(var i=0;i<G.length;i++){var w=cl(G[i].w);gain+=w;
+      q('gf-'+i).style.width=(w*100)+'%';q('gv-'+i).textContent=w.toFixed(2);}
+    var base=0,effNo=0,effYes=0;
+    for(var j=0;j<L.length;j++){
+      var a=cl(L[j].a),eff=cl(L[j].g*(1-a));
+      q('lf-'+j).style.width=(L[j].g*100)+'%';q('ls-'+j).style.width=(eff*100)+'%';
+      q('lv-'+j).textContent=eff.toFixed(2);q('lc-'+j).textContent='afsláttur '+a.toFixed(2);
+      if(L[j].fishNo)effNo=eff;else if(L[j].fishYes)effYes=eff;else base+=eff;
+    }
+    var lostYes=base+effYes,lostNo=base+effNo;
+    var netYes=gain-lostYes,netNo=gain-lostNo;
+    var idxYes=netYes/((gain+lostYes)||1),idxNo=netNo/((gain+lostNo)||1);
+    var sY=(netYes>=0?'+':'\u2212')+Math.abs(netYes).toFixed(2);
+    var sN=(netNo>=0?'+':'\u2212')+Math.abs(netNo).toFixed(2);
+    q('m-gain').textContent=gain.toFixed(2);
+    q('m-net-yes').textContent=sY;
+    q('m-net-no').textContent=sN;
+    q('m-net-yes').style.color=Math.abs(idxYes)<0.04?'var(--ink)':(netYes>0?'var(--tealT)':'var(--coralT)');
+    q('m-net-no').style.color=Math.abs(idxNo)<0.04?'var(--ink)':(netNo>0?'var(--tealT)':'var(--coralT)');
+    q('v-mark-yes').style.left=(cl((idxYes+1)/2)*100)+'%';
+    q('v-mark-no').style.left=(cl((idxNo+1)/2)*100)+'%';
+    var m='Tveir lokareikningar ramma niðurstöðuna inn — bilið milli merkjanna er sjávarútvegsspurningin. Fáist varanleg undanþága helst efnið og nettóið er '+sY+'. Fáist hún ekki gildir sameiginlega sjávarútvegsstefnan að fullu, sjávarútvegur verður stærsta einstaka tapið og nettóið fellur í '+sN+' — '+(netNo>0?'en er enn jákvætt':'og verður neikvætt')+'.';
+    q('v-msg').textContent=m;
+  }
+  buildG();buildL();
+  document.querySelectorAll('.rs').forEach(function(inp){
+    inp.addEventListener('input',function(e){
+      var k=e.target.dataset.kind,i=+e.target.dataset.idx,v=+e.target.value;
+      if(k==='g')G[i].w=v;else L[i].a=v;
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
