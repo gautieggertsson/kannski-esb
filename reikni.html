@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="is"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Reiknivél: vaxtakostnaður heimila — Kannski</title><meta name="robots" content="noindex"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#f4efe4;color:#211d18;-webkit-font-smoothing:antialiased;font-family:Spectral,Georgia,serif}
+a{color:#003399}
+.wm{font-family:Spectral,Georgia,serif;font-weight:700;font-size:21px;letter-spacing:-.01em;color:#211d18;text-decoration:none}
+.mono{font-family:'IBM Plex Mono',monospace}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#a3211a;font-weight:500;margin:0}
+h1{font-family:Spectral,Georgia,serif;font-weight:700;font-size:clamp(28px,5vw,42px);line-height:1.08;letter-spacing:-.015em;margin:8px 0 14px;text-wrap:balance}
+.lead{font-family:Spectral,Georgia,serif;font-size:clamp(17px,2.3vw,20px);color:#46402f;line-height:1.55;max-width:60ch;margin:0 0 8px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+.grid{display:grid;grid-template-columns:340px 1fr;gap:40px;align-items:start;padding:30px 0 70px}
+@media(max-width:780px){.grid{grid-template-columns:1fr;gap:30px}}
+.panel{border:1px solid #e2dccd;background:#fbf8f0;border-radius:10px;padding:22px 22px 8px}
+.ctrl{margin:0 0 22px}
+.ctrl label{display:flex;justify-content:space-between;align-items:baseline;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;color:#46402f;margin:0 0 9px}
+.ctrl .val{font-weight:600;color:#003399;font-size:14px}
+.ctrl .sub{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8a8475;margin:7px 0 0;letter-spacing:.02em}
+input[type=range]{width:100%;accent-color:#003399;height:22px;cursor:pointer}
+.derived{border-top:1px solid #e2dccd;padding:14px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#46402f}
+.derived b{color:#a3211a}
+table{border-collapse:collapse;width:100%;font-family:Spectral,Georgia,serif;font-size:15.5px;margin:6px 0 0}
+th,td{text-align:right;padding:9px 8px;border-bottom:1px solid #e2dccd}
+th:first-child,td:first-child{text-align:left;color:#46402f}
+thead th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#8a8475;font-weight:500;border-bottom:1px solid #c9c2b0}
+tr.tot td{font-weight:600;border-top:1px solid #c9c2b0}
+.kred{color:#a3211a}.kgrn{color:#1f6f3d}
+.headline{font-family:Spectral,Georgia,serif;font-size:clamp(18px,2.4vw,22px);line-height:1.4;margin:18px 0 0;color:#211d18}
+.headline b{color:#a3211a}
+.note{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a8475;line-height:1.7;border-top:1px solid #e2dccd;margin-top:26px;padding-top:14px}
+figure{margin:0}
+figcaption{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a8475;margin:12px 2px 0;line-height:1.5}
+.chart-title{font-family:Spectral,Georgia,serif;font-weight:600;font-size:18px;margin:0 0 2px}
+.chart-sub{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a8475;margin:0 0 6px;letter-spacing:.02em}
+.legend{display:flex;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#46402f;margin:2px 0 10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:11px;height:11px;display:inline-block;border-radius:2px}
+</style></head><body>
+<div style="border-bottom:1px solid #e2dccd;background:rgba(244,239,228,.92);position:sticky;top:0;z-index:8"><div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:13px;padding-bottom:13px"><a class="wm" href="#">Kannski</a><span class="mono" style="font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#8a8475">Frumgerð · reiknivél</span></div></div>
+<div class="wrap"><div style="padding:40px 0 6px"><p class="eyebrow">Vaxtakostnaður heimila</p><h1>Hvað kostar krónan heimilið þitt?</h1><p class="lead">Renndu til forsendunum og sjáðu hvernig mánaðargreiðslan af nýju íbúðaláni skiptist í vexti (til bankans) og eignarmyndun — með krónunni og með evru.</p></div>
+<div class="grid">
+  <div class="panel">
+    <div class="ctrl"><label>Lánsfjárhæð <span class="val" id="vAmount">60 m.kr.</span></label><input type="range" id="amount" min="20" max="120" step="1" value="60"><div class="sub">Sjálfgefið: 85% af 70,6 m.kr. íbúð fyrstu kaupenda (HMS 2025)</div></div>
+    <div class="ctrl"><label>Lánstími <span class="val" style="color:#46402f">25 ár · fast forsenda</span></label><div class="sub">Ekki breyta: gögnin (töflur 1 og 3) segja ekki til um hvernig vextir breytast eftir lánstíma, svo lánstími er fastur og ekki stilltur.</div></div>
+    <div class="ctrl"><label>Raunvextir á Íslandi <span class="val" id="vIce">4,50%</span></label><input type="range" id="ice" min="3.2" max="5.5" step="0.05" value="4.5"><div class="sub">Tafla 1: raunvextir Íslands ≈4,5–5,5% (eftir lánsformi)</div></div>
+    <div class="ctrl"><label>Lækkun raunvaxta með evru, Δr <span class="val" id="vDr">3,70 pp</span></label><input type="range" id="dr" min="2.0" max="4.7" step="0.05" value="3.7"><div class="sub">Tafla 3: bil 2,8–4,7 pp; höfuðmat 3,7 pp</div></div>
+    <div class="derived">Raunvextir á evrusvæði (leiddir): <b id="vEur">0,80%</b><br><span style="color:#8a8475">= raunvextir Íslands − Δr</span></div>
+  </div>
+  <div>
+    <figure>
+      <div class="chart-title" id="cTitle">Hvað borgar þú á mánuði — og hve mikið fer beint til bankans?</div>
+      <div class="chart-sub" id="cSub">Nýtt 60 m.kr. íbúðalán, fyrsta árið — króna á móti evru</div>
+      <div class="legend"><span><i class="sw" style="background:#1f6f3d"></i>Eignarmyndun (þín eign)</span><span><i class="sw" style="background:#a3211a"></i>Vextir til bankans</span></div>
+      <svg id="chart" viewBox="0 0 620 430" width="100%" style="display:block;max-width:620px"></svg>
+      <figcaption id="cCap"></figcaption>
+    </figure>
+    <p class="headline" id="headline"></p>
+    <table id="tbl">
+      <thead><tr><th>Dæmigert heimili</th><th>Króna</th><th>Evra</th></tr></thead>
+      <tbody>
+        <tr><td>Mánaðargreiðsla (1. ár)</td><td id="t_mk"></td><td id="t_me"></td></tr>
+        <tr><td>&nbsp;&nbsp;þar af vextir</td><td class="kred" id="t_ik"></td><td class="kred" id="t_ie"></td></tr>
+        <tr><td>&nbsp;&nbsp;þar af eignarmyndun</td><td class="kgrn" id="t_ek"></td><td class="kgrn" id="t_ee"></td></tr>
+        <tr class="tot"><td id="t_yrs">Heildargreiðsla, 25 ár (raunvirði, verðlag 2025)</td><td id="t_tk"></td><td id="t_te"></td></tr>
+        <tr><td>&nbsp;&nbsp;þar af vextir til bankans</td><td class="kred" id="t_itk"></td><td class="kred" id="t_ite"></td></tr>
+        <tr><td>&nbsp;&nbsp;þar af eign í íbúð</td><td class="kgrn" id="t_pk"></td><td class="kgrn" id="t_pe"></td></tr>
+      </tbody>
+    </table>
+    <div class="note">
+      <b style="color:#a3211a;letter-spacing:.12em;text-transform:uppercase;font-size:10.5px">Hvað myndin gerir ráð fyrir — og ekki</b>
+      <ul style="font-family:Spectral,Georgia,serif;font-size:13.5px;color:#6f6a5f;line-height:1.6;margin:9px 0 0;padding-left:18px">
+        <li>Nýtt <b>íbúðalán til 25 ára</b> (jafnar greiðslur), reiknað í <b>raunvirði á verðlagi ársins 2025</b>. Þar sem reiknað er í raunvirði skiptir ekki máli hvort lánið er verðtryggt eða óverðtryggt — munurinn birtist eingöngu í forsendunni um raunvexti. Sýnd er skipting <b>fyrsta mánaðar</b> í vexti (til bankans) og eignarmyndun.</li>
+        <li><b>Raunvextir haldast fastir óháð lánstíma og binditíma</b> — ekkert binditímaálag (term premium) er reiknað. Ein dæmigerð raunvaxtatala hvoru megin, í anda töflu 1. Þess vegna er lánstími föst forsenda en ekki stillanleg breyta.</li>
+        <li><b>Δr</b> (lækkun raunvaxta) er innan bils töflu 3 (2,8–4,7 pp; höfuðmat 3,7); raunvextir Íslands innan bils töflu 1. Höfuðstóll og íbúð eru þau sömu báðum megin — munurinn liggur allur í vöxtum.</li>
+        <li><b>Það sem myndin gerir ekki:</b> þetta er gróf hlutajafnvægisnálgun sem lítur fram hjá aðlögun og almennum jafnvægisáhrifum; lækkunin kæmi fram smám saman eftir því sem lán endurverðleggjast. Húsnæðisverð gæti hækkað á móti — en þá vex eignarmyndun (græni hlutinn) að sama skapi.</li>
+      </ul>
+    </div>
+  </div>
+</div></div>
+<script>
+var ISK0=new Intl.NumberFormat('is-IS',{maximumFractionDigits:0});
+var ISK1=new Intl.NumberFormat('is-IS',{minimumFractionDigits:1,maximumFractionDigits:1});
+function pct(x){return ISK1.format(x).replace(/,0$/,',0')+'%';}
+function pct2(x){return new Intl.NumberFormat('is-IS',{minimumFractionDigits:2,maximumFractionDigits:2}).format(x);}
+function annuity(P,ar,yrs){var r=ar/12,n=yrs*12;return r===0?P/n:P*r/(1-Math.pow(1+r,-n));}
+
+function calc(P,ar,yrs){var r=ar/12,n=yrs*12,M=annuity(P,ar,yrs),i=P*r,e=M-i,tot=M*n;return{M:M,i:i,e:e,tot:tot,itot:tot-P,P:P};}
+
+function fmtThous(v){return ISK0.format(Math.round(v/1000))+' þús.kr.';}
+function fmtM(v){return ISK1.format(v/1e6)+' m.kr.';}
+
+function draw(k,u,P,yrs){
+  var W=620,H=430,x0=64,x1=600,yTop=40,yBot=360,ph=yBot-yTop;
+  var maxV=Math.max(k.M,u.M),scale=Math.ceil(maxV/1000/50)*50;if(scale<50)scale=50;
+  function Y(v){return yBot-(v/1000)/scale*ph;}
+  var bw=120,cx1=200,cx2=430;
+  var s='';
+  // axis + gridlines
+  for(var g=0;g<=scale;g+=100){var yy=Y(g*1000);s+='<line x1="'+x0+'" y1="'+yy+'" x2="'+x1+'" y2="'+yy+'" stroke="#e2dccd" stroke-width="1"/>';s+='<text x="'+(x0-8)+'" y="'+(yy+4)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="#8a8475">'+g+'</text>';}
+  s+='<text x="'+x0+'" y="22" font-family="IBM Plex Mono,monospace" font-size="10" fill="#8a8475">Mánaðargreiðsla, þús.kr. (á verðlagi 2025)</text>';
+  function bar(cx,d,label){
+    var bx=cx-bw/2;
+    var hE=(d.e/1000)/scale*ph, hI=(d.i/1000)/scale*ph;
+    var yE=yBot-hE, yI=yE-hI;
+    var out='';
+    out+='<rect x="'+bx+'" y="'+yE+'" width="'+bw+'" height="'+hE+'" fill="#1f6f3d"/>';
+    out+='<rect x="'+bx+'" y="'+yI+'" width="'+bw+'" height="'+hI+'" fill="#a3211a"/>';
+    // segment labels (only if tall enough)
+    if(hI>30){out+='<text x="'+cx+'" y="'+(yI+hI/2-4)+'" text-anchor="middle" font-family="Spectral,serif" font-size="12" fill="#fff">Vextir</text>';out+='<text x="'+cx+'" y="'+(yI+hI/2+13)+'" text-anchor="middle" font-family="Spectral,serif" font-weight="600" font-size="13" fill="#fff">'+ISK0.format(Math.round(d.i/1000))+' þús.</text>';}
+    if(hE>30){out+='<text x="'+cx+'" y="'+(yE+hE/2-4)+'" text-anchor="middle" font-family="Spectral,serif" font-size="12" fill="#fff">Eignarmyndun</text>';out+='<text x="'+cx+'" y="'+(yE+hE/2+13)+'" text-anchor="middle" font-family="Spectral,serif" font-weight="600" font-size="13" fill="#fff">'+ISK0.format(Math.round(d.e/1000))+' þús.</text>';}
+    // total above
+    out+='<text x="'+cx+'" y="'+(yI-12)+'" text-anchor="middle" font-family="Spectral,serif" font-weight="700" font-size="17" fill="#211d18">'+ISK0.format(Math.round(d.M/1000))+' þús.kr.</text>';
+    out+='<text x="'+cx+'" y="'+(yBot+20)+'" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#46402f">'+label+'</text>';
+    return out;
+  }
+  s+=bar(cx1,k,'Lán í krónum');
+  s+=bar(cx2,u,'Lán í evru');
+  // difference bracket between bar tops
+  var diff=(k.M-u.M)/1000, ykTop=Y(k.M), yuTop=Y(u.M), bxr=cx2+bw/2+16;
+  s+='<line x1="'+bxr+'" y1="'+ykTop+'" x2="'+(bxr+10)+'" y2="'+ykTop+'" stroke="#8a8475"/><line x1="'+bxr+'" y1="'+yuTop+'" x2="'+(bxr+10)+'" y2="'+yuTop+'" stroke="#8a8475"/><line x1="'+(bxr+10)+'" y1="'+ykTop+'" x2="'+(bxr+10)+'" y2="'+yuTop+'" stroke="#8a8475"/>';
+  s+='<text x="'+(bxr+16)+'" y="'+((ykTop+yuTop)/2-2)+'" font-family="IBM Plex Mono,monospace" font-size="11" fill="#211d18">'+ISK0.format(Math.round(diff))+' þús.kr.</text>';
+  s+='<text x="'+(bxr+16)+'" y="'+((ykTop+yuTop)/2+13)+'" font-family="IBM Plex Mono,monospace" font-size="11" fill="#211d18">lægra með evru</text>';
+  document.getElementById('chart').innerHTML=s;
+}
+
+function update(){
+  var P=+amount.value*1e6, yrs=25, ar=+ice.value/100, dr=+dr_.value/100;
+  var er=Math.max(0, ar-dr);
+  vAmount.textContent=ISK0.format(+amount.value)+' m.kr.';
+  vIce.textContent=pct2(+ice.value)+'%';
+  vDr.textContent=pct2(+dr_.value)+' pp';
+  vEur.textContent=pct2(er*100)+'%';
+  var k=calc(P,ar,yrs), u=calc(P,er,yrs);
+  draw(k,u,P,yrs);
+  cSub.textContent='Nýtt '+ISK0.format(+amount.value)+' m.kr. íbúðalán, fyrsta árið — króna á móti evru';
+  t_mk.textContent=fmtThous(k.M); t_me.textContent=fmtThous(u.M);
+  t_ik.textContent=fmtThous(k.i); t_ie.textContent=fmtThous(u.i);
+  t_ek.textContent=fmtThous(k.e); t_ee.textContent=fmtThous(u.e);
+  t_yrs.textContent='Heildargreiðsla, '+yrs+' ár (raunvirði, verðlag 2025)';
+  t_tk.textContent=fmtM(k.tot); t_te.textContent=fmtM(u.tot);
+  t_itk.textContent=fmtM(k.itot); t_ite.textContent=fmtM(u.itot);
+  t_pk.textContent=fmtM(P); t_pe.textContent=fmtM(P);
+  var moreMonth=(k.M-u.M)/1000, moreTot=(k.itot-u.itot)/1e6;
+  headline.innerHTML='Með krónunni borgar heimilið <b>'+ISK0.format(Math.round(moreMonth))+' þús.kr.</b> meira á mánuði og <b>'+ISK1.format(moreTot)+' m.kr.</b> meira í vexti yfir 25 ára lánstímann — fyrir nákvæmlega sömu íbúð.';
+}
+// dr id clashes with element; alias
+var dr_=document.getElementById('dr');
+['amount','ice','dr'].forEach(function(id){document.getElementById(id).addEventListener('input',update);});
+update();
+</script>
+</body></html>
