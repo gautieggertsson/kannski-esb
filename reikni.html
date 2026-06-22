@@ -40,7 +40,7 @@ figcaption{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a8475;ma
 <div class="grid">
   <div class="panel">
     <div class="ctrl"><label>Lánsfjárhæð <span class="val" id="vAmount">60 m.kr.</span></label><input type="range" id="amount" min="20" max="120" step="1" value="60"><div class="sub">Sjálfgefið: 85% af 70,6 m.kr. íbúð fyrstu kaupenda (HMS 2025)</div></div>
-    <div class="ctrl"><label>Lánstími <span class="val" id="vTerm">25 ár</span></label><input type="range" id="term" min="15" max="40" step="1" value="25"><div class="sub">Verðtryggð lán eru oft 25–40 ár</div></div>
+    <div class="ctrl"><label>Lánstími <span class="val" style="color:#46402f">25 ár · fast forsenda</span></label><div class="sub">Ekki breyta: gögnin (töflur 1 og 3) segja ekki til um hvernig vextir breytast eftir lánstíma, svo lánstími er fastur og ekki stilltur.</div></div>
     <div class="ctrl"><label>Raunvextir á Íslandi <span class="val" id="vIce">4,50%</span></label><input type="range" id="ice" min="3.2" max="5.5" step="0.05" value="4.5"><div class="sub">Tafla 1: verðtryggt 4,5% → óverðtryggt ex ante 5,5%</div></div>
     <div class="ctrl"><label>Lækkun raunvaxta með evru, Δr <span class="val" id="vDr">3,70 pp</span></label><input type="range" id="dr" min="2.0" max="4.7" step="0.05" value="3.7"><div class="sub">Tafla 3: bil 2,8–4,7 pp; höfuðmat 3,7 pp</div></div>
     <div class="derived">Raunvextir á evrusvæði (leiddir): <b id="vEur">0,80%</b><br><span style="color:#8a8475">= raunvextir Íslands − Δr</span></div>
@@ -65,7 +65,15 @@ figcaption{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a8475;ma
         <tr><td>&nbsp;&nbsp;þar af eign í íbúð</td><td class="kgrn" id="t_pk"></td><td class="kgrn" id="t_pe"></td></tr>
       </tbody>
     </table>
-    <div class="note" id="note"></div>
+    <div class="note">
+      <b style="color:#a3211a;letter-spacing:.12em;text-transform:uppercase;font-size:10.5px">Hvað myndin gerir ráð fyrir — og ekki</b>
+      <ul style="font-family:Spectral,Georgia,serif;font-size:13.5px;color:#6f6a5f;line-height:1.6;margin:9px 0 0;padding-left:18px">
+        <li>Nýtt <b>verðtryggt jafngreiðslulán til 25 ára</b>, reiknað í <b>raunvirði</b> (verðlag dagsins). Sýnd er skipting <b>fyrsta mánaðar</b> í vexti (til bankans) og eignarmyndun.</li>
+        <li><b>Raunvextir haldast fastir óháð lánstíma og binditíma</b> — ekkert binditímaálag (term premium) er reiknað. Ein dæmigerð raunvaxtatala hvoru megin, í anda töflu 1. Þess vegna er lánstími föst forsenda en ekki stillanleg breyta.</li>
+        <li><b>Δr</b> (lækkun raunvaxta) er innan bils töflu 3 (2,8–4,7 pp; höfuðmat 3,7); raunvextir Íslands innan bils töflu 1. Höfuðstóll og íbúð eru þau sömu báðum megin — munurinn liggur allur í vöxtum.</li>
+        <li><b>Það sem myndin gerir ekki:</b> þetta er gróf hlutajafnvægisnálgun sem lítur fram hjá aðlögun og almennum jafnvægisáhrifum; lækkunin kæmi fram smám saman eftir því sem lán endurverðleggjast. Húsnæðisverð gæti hækkað á móti — en þá vex eignarmyndun (græni hlutinn) að sama skapi.</li>
+      </ul>
+    </div>
   </div>
 </div></div>
 <script>
@@ -115,10 +123,9 @@ function draw(k,u,P,yrs){
 }
 
 function update(){
-  var P=+amount.value*1e6, yrs=+term.value, ar=+ice.value/100, dr=+dr_.value/100;
+  var P=+amount.value*1e6, yrs=25, ar=+ice.value/100, dr=+dr_.value/100;
   var er=Math.max(0, ar-dr);
   vAmount.textContent=ISK0.format(+amount.value)+' m.kr.';
-  vTerm.textContent=yrs+' ár';
   vIce.textContent=pct2(+ice.value)+'%';
   vDr.textContent=pct2(+dr_.value)+' pp';
   vEur.textContent=pct2(er*100)+'%';
@@ -133,12 +140,11 @@ function update(){
   t_itk.textContent=fmtM(k.itot); t_ite.textContent=fmtM(u.itot);
   t_pk.textContent=fmtM(P); t_pe.textContent=fmtM(P);
   var moreMonth=(k.M-u.M)/1000, moreTot=(k.itot-u.itot)/1e6;
-  headline.innerHTML='Með krónunni borgar heimilið <b>'+ISK0.format(Math.round(moreMonth))+' þús.kr.</b> meira á mánuði og <b>'+ISK1.format(moreTot)+' m.kr.</b> meira í vexti yfir lánstímann — fyrir nákvæmlega sömu íbúð.';
-  note.innerHTML='Verðtryggð jafngreiðslulán, reiknað í raunvirði. Skipting fyrsta mánaðar. Sjálfgefnar forsendur endurskapa Mynd 1 í greinargerðinni (raunvextir Íslands 4,5%, evrusvæði 0,8%).<br>Gróf hlutajafnvægisnálgun: lítur fram hjá aðlögun og almennum jafnvægisáhrifum; lækkunin kæmi fram smám saman eftir því sem lán endurverðleggjast. Húsnæðisverð gæti hækkað á móti — en þá vex eignarmyndun (græni hlutinn) að sama skapi: heimilið borgar meira í eign og minna í vexti.';
+  headline.innerHTML='Með krónunni borgar heimilið <b>'+ISK0.format(Math.round(moreMonth))+' þús.kr.</b> meira á mánuði og <b>'+ISK1.format(moreTot)+' m.kr.</b> meira í vexti yfir 25 ára lánstímann — fyrir nákvæmlega sömu íbúð.';
 }
 // dr id clashes with element; alias
 var dr_=document.getElementById('dr');
-['amount','term','ice','dr'].forEach(function(id){document.getElementById(id).addEventListener('input',update);});
+['amount','ice','dr'].forEach(function(id){document.getElementById(id).addEventListener('input',update);});
 update();
 </script>
 </body></html>
