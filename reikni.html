@@ -60,7 +60,7 @@ figcaption{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a8475;ma
         <tr><td>Mánaðargreiðsla (1. ár)</td><td id="t_mk"></td><td id="t_me"></td></tr>
         <tr><td>&nbsp;&nbsp;þar af vextir</td><td class="kred" id="t_ik"></td><td class="kred" id="t_ie"></td></tr>
         <tr><td>&nbsp;&nbsp;þar af eignarmyndun</td><td class="kgrn" id="t_ek"></td><td class="kgrn" id="t_ee"></td></tr>
-        <tr class="tot"><td id="t_yrs">Heildargreiðsla, 25 ár (raunvirði)</td><td id="t_tk"></td><td id="t_te"></td></tr>
+        <tr class="tot"><td id="t_yrs">Heildargreiðsla, 25 ár (raunvirði, verðlag 2025)</td><td id="t_tk"></td><td id="t_te"></td></tr>
         <tr><td>&nbsp;&nbsp;þar af vextir til bankans</td><td class="kred" id="t_itk"></td><td class="kred" id="t_ite"></td></tr>
         <tr><td>&nbsp;&nbsp;þar af eign í íbúð</td><td class="kgrn" id="t_pk"></td><td class="kgrn" id="t_pe"></td></tr>
       </tbody>
@@ -68,7 +68,7 @@ figcaption{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a8475;ma
     <div class="note">
       <b style="color:#a3211a;letter-spacing:.12em;text-transform:uppercase;font-size:10.5px">Hvað myndin gerir ráð fyrir — og ekki</b>
       <ul style="font-family:Spectral,Georgia,serif;font-size:13.5px;color:#6f6a5f;line-height:1.6;margin:9px 0 0;padding-left:18px">
-        <li>Nýtt <b>verðtryggt jafngreiðslulán til 25 ára</b>, reiknað í <b>raunvirði</b> (verðlag dagsins). Sýnd er skipting <b>fyrsta mánaðar</b> í vexti (til bankans) og eignarmyndun.</li>
+        <li>Nýtt <b>verðtryggt jafngreiðslulán til 25 ára</b>, reiknað í <b>raunvirði á verðlagi ársins 2025</b>. Sýnd er skipting <b>fyrsta mánaðar</b> í vexti (til bankans) og eignarmyndun.</li>
         <li><b>Raunvextir haldast fastir óháð lánstíma og binditíma</b> — ekkert binditímaálag (term premium) er reiknað. Ein dæmigerð raunvaxtatala hvoru megin, í anda töflu 1. Þess vegna er lánstími föst forsenda en ekki stillanleg breyta.</li>
         <li><b>Δr</b> (lækkun raunvaxta) er innan bils töflu 3 (2,8–4,7 pp; höfuðmat 3,7); raunvextir Íslands innan bils töflu 1. Höfuðstóll og íbúð eru þau sömu báðum megin — munurinn liggur allur í vöxtum.</li>
         <li><b>Það sem myndin gerir ekki:</b> þetta er gróf hlutajafnvægisnálgun sem lítur fram hjá aðlögun og almennum jafnvægisáhrifum; lækkunin kæmi fram smám saman eftir því sem lán endurverðleggjast. Húsnæðisverð gæti hækkað á móti — en þá vex eignarmyndun (græni hlutinn) að sama skapi.</li>
@@ -96,7 +96,7 @@ function draw(k,u,P,yrs){
   var s='';
   // axis + gridlines
   for(var g=0;g<=scale;g+=100){var yy=Y(g*1000);s+='<line x1="'+x0+'" y1="'+yy+'" x2="'+x1+'" y2="'+yy+'" stroke="#e2dccd" stroke-width="1"/>';s+='<text x="'+(x0-8)+'" y="'+(yy+4)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="#8a8475">'+g+'</text>';}
-  s+='<text x="'+x0+'" y="22" font-family="IBM Plex Mono,monospace" font-size="10" fill="#8a8475">Mánaðargreiðsla, þús.kr. (verðlag í dag)</text>';
+  s+='<text x="'+x0+'" y="22" font-family="IBM Plex Mono,monospace" font-size="10" fill="#8a8475">Mánaðargreiðsla, þús.kr. (á verðlagi 2025)</text>';
   function bar(cx,d,label){
     var bx=cx-bw/2;
     var hE=(d.e/1000)/scale*ph, hI=(d.i/1000)/scale*ph;
@@ -135,7 +135,7 @@ function update(){
   t_mk.textContent=fmtThous(k.M); t_me.textContent=fmtThous(u.M);
   t_ik.textContent=fmtThous(k.i); t_ie.textContent=fmtThous(u.i);
   t_ek.textContent=fmtThous(k.e); t_ee.textContent=fmtThous(u.e);
-  t_yrs.textContent='Heildargreiðsla, '+yrs+' ár (raunvirði)';
+  t_yrs.textContent='Heildargreiðsla, '+yrs+' ár (raunvirði, verðlag 2025)';
   t_tk.textContent=fmtM(k.tot); t_te.textContent=fmtM(u.tot);
   t_itk.textContent=fmtM(k.itot); t_ite.textContent=fmtM(u.itot);
   t_pk.textContent=fmtM(P); t_pe.textContent=fmtM(P);
