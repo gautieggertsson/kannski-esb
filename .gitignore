@@ -1,2 +1,10 @@
 _fonts/
 _pdf/
+
+# LaTeX build artifacts (drafts/)
+drafts/*.aux
+drafts/*.log
+drafts/*.out
+drafts/*.pdf
+drafts/*.toc
+drafts/*.synctex.gz
